@@ -47,10 +47,118 @@ Aktualnie nasza firma “TytusPro”  zajmuję się realizacją projektu zautoma
 
 # Wprowadzone biblotek na płytę nukleo
 
+# Algorytm blokowy
+![Algorytm blokowy](algorytma4.png)
+
+# Opis fragmentów kodu
+
+ - Czas i data uruchomienia
+
+```C
+RTC_Datetime_t datetime_start = {         
+  .year = 23,
+  .month = 02,
+  .month_day = 03,                        
+  .hour = 16,
+  .minute = 00,
+  .second = 00
+};
+```
+- Zadeklarowane zdarzenia
+
+```C
+typedef enum {                          
+	EVENT_Enable_Sun,
+	EVENT_Enable_Water,
+	EVENT_Enable_Air,
+	EVENT_Disable_Sun,
+	EVENT_Disable_Water,
+	EVENT_Disable_Air,
+} Event_e;
+```
+- Tablica alarmów, którą ustawiamy przed programowaniem urządzenia. Alarmy mają następować po sobie.
+
+```C
+ Alarm_t alarm_array[ALARM_COUNT] = {         
+		{ .event = EVENT_Enable_Sun, .alarm = { .day_mask = true, .hour = 8, .minute = 0, .second = 0 } },
+		{ .event = EVENT_Enable_Air, .alarm = { .day_mask = true, .hour = 12, .minute = 0, .second = 0 } },
+		{ .event = EVENT_Enable_Water, .alarm = { .day_mask = true, .hour = 15, .minute = 0, .second = 0 } },
+		{ .event = EVENT_Disable_Water, .alarm = { .day_mask = true, .hour = 15, .minute = 3, .second = 0 } },
+		{ .event = EVENT_Disable_Air, .alarm = { .day_mask = true, .hour = 18, .minute = 0, .second = 0 } },
+		{ .event = EVENT_Disable_Sun, .alarm = { .day_mask = true, .hour = 22, .minute = 0, .second = 0 } }
+};
+```
+- Pętla for sprawdzająca najbliższy alarm z tablicy (NIE DZIAŁA)
+
+```C
+ for (uint8_t i = 0; i < ALARM_COUNT; i++) {                
+    if(datetime_start.hour >= alarm_array[i].alarm.hour &&
+       datetime_start.minute >= alarm_array[i].alarm.minute &&
+	   datetime_start.second >= alarm_array[i].alarm.second) {
+
+        RTC_Alarm_A_Enable(&(alarm_array[i].alarm));
+ ```
+- Event świadczy o obsłudze danego alarmu    
+
+```C
+ while(1)
+		  {
+			if(RTC_Event_A()) {
+
+				switch(alarm_array[alarm_now].event) {         
+				  case EVENT_Enable_Sun:
+					  //for enable sun
+					  break;
+				  case EVENT_Enable_Air:
+					  //for enable air
+					  break;
+				  case EVENT_Enable_Water:
+					  //for enable water
+					  break;
+				  case EVENT_Disable_Water:
+				  	  //for disable water
+					  break;
+				  case EVENT_Disable_Air:
+					  //for disable air
+					  break;
+				  case EVENT_Disable_Sun:
+					  //for disable sun
+				  	  break;
+
+				}
+```
+- Zwiększamy alarm o jeden, jeżeli nasz alarm jest większy bądź równy to zaczynamy od początku.
+```js
+
+				alarm_now++;                      
+				if(alarm_now >= ALARM_COUNT) alarm_now = 0;     
+				RTC_Alarm_A_Enable(&(alarm_array[alarm_now].alarm));
+
+			  __NOP();
+			}
+			__NOP();
+		  }
+		 }
+
+  }
+}
+```
+#  Co należy dodać w przyszłości?
+
+- Poprawić pętle for
+
+- Ustawić pod przyciskiem aktualny czas 
+
+# Wprowadzone biblotek na płytę nukleo
+
 Bibloteki która wprowadza zegar z czasem na odpowiednim wyjściu rtc.c , rtc.h oraz main.c 
 1. rtc.c 
-```json
+```C
 {}
+
+```
+
+
 
 
 
