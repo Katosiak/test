@@ -45,8 +45,6 @@ Aktualnie nasza firma “TytusPro”  zajmuję się realizacją projektu zautoma
 # Schemat poglądowy systemu iregacyjnego
 ![Schemat](Zasilacz.PNG)
 
-# Wprowadzone biblotek na płytę nukleo
-
 # Algorytm blokowy
 ![Algorytm blokowy](algorytma4.png)
 
