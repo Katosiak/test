@@ -43,7 +43,7 @@ Aktualnie nasza firma “TytusPro”  zajmuję się realizacją projektu zautoma
     - średnica 1cm
 
 # Schemat poglądowy systemu iregacyjnego
-![Schemat](Zasilacz.png)
+![Schemat](Zasilacz.PNG)
 
 # Wprowadzone biblotek na płytę nukleo
 
@@ -148,15 +148,6 @@ typedef enum {
 - Poprawić pętle for
 
 - Ustawić pod przyciskiem aktualny czas 
-
-# Wprowadzone biblotek na płytę nukleo
-
-Bibloteki która wprowadza zegar z czasem na odpowiednim wyjściu rtc.c , rtc.h oraz main.c 
-1. rtc.c 
-```C
-{}
-
-```
 
 
 
